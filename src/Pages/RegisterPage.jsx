@@ -1,25 +1,10 @@
-import React, { useContext } from "react";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
-import { MyAuth } from "../Context/MyAppAuthContext";
+import React from 'react'
+import useAuth from "../hooks/useAuth";
+
 
 const RegisterPage = () => {
-  let Navigate = useNavigate();
-  const { registeredUsers, setregisteredUsers } = useContext(MyAuth);
-  let {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors,},
-  } = useForm();
-
-  let formSubmit = (data) => {
-    let registerdUserarr = [...registeredUsers, data]
-    setregisteredUsers(registerdUserarr);
-    alert("User registered successfully")
-    localStorage.setItem("registeredUsers",JSON.stringify(registerdUserarr))
-    reset();
-  };
+ let {handleSubmit,register,errors,Navigate,registerSubmit} = useAuth()
+ 
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-zinc-100 px-4">
@@ -32,7 +17,7 @@ const RegisterPage = () => {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit(formSubmit)} className="space-y-5">
+        <form onSubmit={handleSubmit(registerSubmit)} className="space-y-5">
           {/* Full Name */}
           <div>
             <label className="mb-2 block text-sm font-medium text-zinc-700">

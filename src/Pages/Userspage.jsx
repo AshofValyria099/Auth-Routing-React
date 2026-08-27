@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import UserCard from "../components/Usercard";
+import { axiosinstance } from "../config/axiosinstance";
 
 const Userspage = () => {
   const [allUsers, setallUsers] = useState([]);
@@ -9,9 +10,9 @@ const Userspage = () => {
 
   let getallUsers = async () => {
     try {
-      let res = await axios.get("https://fakestoreapi.com/users");
+      let res = await axiosinstance.get("/users");
       setallUsers(res.data);
-      setisLoading(false)
+      setisLoading(false);
     } catch (error) {
       console.log("API error", error);
     }

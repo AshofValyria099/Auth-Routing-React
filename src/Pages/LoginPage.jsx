@@ -1,40 +1,11 @@
-import React, { useContext } from "react";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
-import { MyAuth } from "../Context/MyAppAuthContext";
+import React from 'react'
+import useAuth from "../hooks/useAuth";
 
 const LoginPage = () => {
-    console.log("LoginPage renders...")
 
-  let Navigate = useNavigate();
+ let {handleSubmit,register,errors,Navigate,loginSubmit} = useAuth()
 
-  const { registeredUsers, loggedInUsers, setloggedInUsers } =
-    useContext(MyAuth);
-
-  let {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors, isValid },
-  } = useForm();
-
-  let formSubmit = (data) => {
-    let foundedUser = registeredUsers.find((val) => {
-      return val.Email === data.Email && val.Password === data.Password;
-    });
-
-    if (!foundedUser) {
-      alert("User not found or invalid credentials");
-      reset();
-      return;
-    }
-
-    setloggedInUsers(foundedUser);
-    localStorage.setItem("loggedInUsers",JSON.stringify(foundedUser))
-    alert("User logged IN");
-    Navigate("/main")
-    reset();
-  };
+ 
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-zinc-100 px-4">
@@ -49,7 +20,7 @@ const LoginPage = () => {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit(formSubmit)} className="space-y-5">
+        <form onSubmit={handleSubmit(loginSubmit)} className="space-y-5">
           {/* Email */}
           <div>
             <label className="mb-2 block text-sm font-medium text-zinc-700">
